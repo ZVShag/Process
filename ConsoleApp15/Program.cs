@@ -16,11 +16,19 @@ namespace ConsoleApp15
         {
             int k = 0;
             string text="";
+            long maxmemo = 0;
+            string maxmemo_process_name;
+            int maxmemo_process_id;
             foreach (Process process1 in Process.GetProcesses())
             {
                text+=($"ID: {process1.Id},NameProcess: {process1.ProcessName}, " +
                     $"Heap: {process1.VirtualMemorySize64}")+"\n";
                 k++;
+                if (process1.VirtualMemorySize64>maxmemo)
+                {
+                    maxmemo_process_name= process1.ProcessName;
+                    maxmemo_process_id= process1.Id;
+                }
                 
 
             }
