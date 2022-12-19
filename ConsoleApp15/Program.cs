@@ -17,8 +17,8 @@ namespace ConsoleApp15
             int k = 0;
             string text="";
             long maxmemo = 0;
-            string maxmemo_process_name;
-            int maxmemo_process_id;
+            string maxmemo_process_name="";
+            int maxmemo_process_id=0;
             foreach (Process process1 in Process.GetProcesses())
             {
                text+=($"ID: {process1.Id},NameProcess: {process1.ProcessName}, " +
@@ -36,9 +36,11 @@ namespace ConsoleApp15
             DateTime data = DateTime.Now;
             string path = data.Day.ToString()+"."+data.Month.ToString()+"."+data.Year.ToString()+"process.txt";
             File.AppendAllText(path, text);
-           
-            
-            
+            File.AppendAllText(path, $"Max memory process\n {maxmemo_process_id}\t{maxmemo_process_name}\t{maxmemo}");
+
+
+
+
         }
     }
 }
