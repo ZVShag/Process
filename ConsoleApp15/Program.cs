@@ -10,47 +10,46 @@ using System.IO;
 
 namespace ConsoleApp15
 {
-    internal class Program
+    internal class proc
     {
-        static  void Main(string[] args)
+        public long id { get; set; }
+        public string name { get; set; }
+        public long memo { get; set; }
+        public void Print()
         {
-            int k = 0;
-            string text="";
-            long maxmemo = 0;
-            string maxmemo_process_name="";
-            int maxmemo_process_id=0;
-            long minmemo = 11015555555;
-            string minmemo_process_name = "";
-            int minmemo_process_id = 0;
-            foreach (Process process1 in Process.GetProcesses())
+            Console.WriteLine($"Process ID:{this.id}");
+            Console.WriteLine($"Process Name:{this.name}");
+            Console.WriteLine($"Process Memmory size:{this.memo}");
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
             {
-               text+=($"ID: {process1.Id},NameProcess: {process1.ProcessName}, " +
-                    $"Heap: {process1.VirtualMemorySize64}")+"\n";
-                k++;
-                if (process1.VirtualMemorySize64>maxmemo)
+                List<proc> procList = new List<proc>();
+                foreach (Process pr in Process.GetProcesses())
                 {
-                    maxmemo= process1.VirtualMemorySize64; 
-                    maxmemo_process_name = process1.ProcessName;
-                    maxmemo_process_id= process1.Id;
+                    proc a = new proc();
+                    a.id = pr.Id;
+                    a.name = pr.ProcessName;
+                    a.memo = pr.PagedMemorySize64;
+                    procList.Add(a);
                 }
-                if (process1.VirtualMemorySize64 < minmemo)
+                foreach (proc proc in procList)
                 {
-                    minmemo = process1.VirtualMemorySize64;
-                    minmemo_process_name = process1.ProcessName;
-                    minmemo_process_id = process1.Id;
+                    proc.Print();
                 }
+                string text = "";
+
+                /*DateTime data = DateTime.Now;
+                string path = data.Day.ToString()+"."+data.Month.ToString()+"."+data.Year.ToString()+"process.txt";
+                File.AppendAllText(path, text);
+                File.AppendAllText(path, $"Max memory process\n {maxmemo_process_id}\t{maxmemo_process_name}\t{maxmemo}");
+                File.AppendAllText(path, $"\nMin memory process\n {minmemo_process_id}\t{minmemo_process_name}\t{minmemo}");
+                */
+
 
 
             }
-            DateTime data = DateTime.Now;
-            string path = data.Day.ToString()+"."+data.Month.ToString()+"."+data.Year.ToString()+"process.txt";
-            File.AppendAllText(path, text);
-            File.AppendAllText(path, $"Max memory process\n {maxmemo_process_id}\t{maxmemo_process_name}\t{maxmemo}");
-            File.AppendAllText(path, $"\nMin memory process\n {minmemo_process_id}\t{minmemo_process_name}\t{minmemo}");
-
-
-
-
         }
     }
 }
