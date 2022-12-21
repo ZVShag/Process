@@ -33,10 +33,26 @@ namespace ConsoleApp15
                     a.id = pr.Id;
                     a.name = pr.ProcessName;
                     a.memo = pr.PagedMemorySize64;
-                    procList.Add(a);                 
+                    procList.Add(a);
                 }
-                procList.Sort(delegate (proc p1, proc p2) { return p1.id.CompareTo(p2.id); }); 
-               
+                
+                Console.WriteLine("Sort:\n1.Name\n2.ID\n3.Size");
+                int menu = int.Parse(Console.ReadLine());
+                switch (menu)
+                {
+                    case 1:
+                        procList.Sort(delegate (proc p1, proc p2) { return p1.name.CompareTo(p2.name); });
+                        break;
+                    case 2:
+                        procList.Sort(delegate (proc p1, proc p2) { return p1.id.CompareTo(p2.id); });
+                        break;
+                    case 3:
+                        procList.Sort(delegate (proc p1, proc p2) { return p1.memo.CompareTo(p2.memo); });
+                        break;
+                    default:
+                        Console.WriteLine();
+                        break;
+                }
                 foreach (proc proc in procList)
                 {
                     proc.Print();
