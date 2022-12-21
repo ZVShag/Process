@@ -25,6 +25,7 @@ namespace ConsoleApp15
         {
             static void Main(string[] args)
             {
+                
                 List<proc> procList = new List<proc>();
                 foreach (Process pr in Process.GetProcesses())
                 {
@@ -32,8 +33,10 @@ namespace ConsoleApp15
                     a.id = pr.Id;
                     a.name = pr.ProcessName;
                     a.memo = pr.PagedMemorySize64;
-                    procList.Add(a);
+                    procList.Add(a);                 
                 }
+                procList.Sort(delegate (proc p1, proc p2) { return p1.id.CompareTo(p2.id); }); 
+               
                 foreach (proc proc in procList)
                 {
                     proc.Print();
